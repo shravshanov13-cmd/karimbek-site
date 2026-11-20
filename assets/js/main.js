@@ -140,13 +140,6 @@
 
     D.querySelectorAll('.go:empty').forEach(function (g) { g.innerHTML = ICON.arrow; });
 
-    /* лента: повторяем набор слов, чтобы хватило на всю ширину */
-    D.querySelectorAll('.band__row').forEach(function (row) {
-      var set = row.querySelector('.band__set');
-      if (!set) return;
-      for (var i = 0; i < 3; i++) row.appendChild(set.cloneNode(true));
-    });
-
     D.querySelectorAll('[data-stagger]').forEach(function (box) {
       Array.prototype.forEach.call(box.children, function (c, i) { c.style.setProperty('--i', i); });
     });
@@ -315,7 +308,7 @@
       p = p < 0 ? 0 : p > 1 ? 1 : p;
       if (f.prog) f.el.style.setProperty('--p', p.toFixed(4));
       if (RM) { if (f.scrub) lightWords(f.el, 1); continue; }
-      if (f.par) f.el.style.translate = '0 ' + ((p - 0.5) * f.par).toFixed(1) + 'px';
+      if (f.par && window.innerWidth >= 768) f.el.style.translate = '0 ' + ((p - 0.5) * f.par).toFixed(1) + 'px';
       if (f.spin) f.el.style.rotate = (y * f.spin).toFixed(2) + 'deg';
       if (f.scrub) lightWords(f.el, (vh * 0.86 - r.top) / (r.height + vh * 0.36));
     }
